@@ -19,7 +19,7 @@ function App() {
           <Link to="/informativo">Informativo</Link>
           <Link to="/mapa">Mapa</Link>
           <Link to="/favoritos">Favoritos</Link>
-          <Link to="/Detalles">Detalles</Link>
+          <Link to="/detalle">Detalles</Link>
   </nav>
 
 
