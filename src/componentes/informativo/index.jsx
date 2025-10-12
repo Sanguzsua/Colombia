@@ -3,7 +3,9 @@ import logo from '../../assets/colombia.png'; // Asegúrate de que la ruta sea c
 
 function Informativo() {
   return (
+    
     <div className="informativo-container">
+      <h1>Informativo</h1>
       <header className="informativo-header">
         <h1 className="informativo-titulo">COLOMBIA</h1>
         <img src={logo} alt="Logo Colombia" className="informativo-logo" />

@@ -3,7 +3,7 @@ import './style.css';
 
 function Home() {
   
- 
+   
 const [departamentos, setDepartamentos] = useState(null);
 const [capitales, setCapitales] = useState(null);
 const [modo, setModo] = useState("departamentos");

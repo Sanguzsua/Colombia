@@ -28,7 +28,7 @@ function Detalles() {
 
   return (
     <div className="detalle-container">
-      <h1>Resultados por Departamento</h1>
+      <h1>Detalles</h1>
 
       {departamentos.length === 0 ? (
         <p>No hay datos disponibles.</p>
