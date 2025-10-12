@@ -1,48 +1,64 @@
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import './style.css'
+import React, { useEffect, useState } from "react";
+import "./style.css";
 
 function Detalles() {
-  const { depto, municipio } = useParams();
-  const [municipioData, setMunicipioData] = useState(null);
+  const [departamentos, setDepartamentos] = useState([]);
+  const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
-    if (!depto || !municipio) return;
+    const urlDpt =
+      "https://gist.githubusercontent.com/diaztibata/fe3d238ee6b59ef71c8001654441a9f6/raw/4974a1b1cab3ac606dd96aa2d34d6e7c8e007daf/departamentosglobal.json";
 
-    const url = `https://gist.githubusercontent.com/diaztibata/fe3d238ee6b59ef71c8001654441a9f6/raw/225cef5e16b3997317e205a08a64985c9903f3c7/municipios-${encodeURIComponent(depto)}.json`;
-
-    const fetchData = async () => {
+    const fetchDepartamentos = async () => {
       try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-
-        const data = await response.json(); // data.mun es el array
-
-        const encontrado = data.mun.find((item) => item.id === municipio);
-
-        if (!encontrado) {
-          console.warn(`Municipio con id "${municipio}" no encontrado.`);
-        }
-
-        setMunicipioData(encontrado);
+        const resp = await fetch(urlDpt);
+        const json = await resp.json();
+        setDepartamentos(json.data.dpt);
       } catch (error) {
-        console.error("Error al cargar el JSON:", error);
+        console.error("Error al cargar departamentos:", error);
+      } finally {
+        setCargando(false);
       }
     };
 
-    fetchData();
-  }, [depto, municipio]);
+    fetchDepartamentos();
+  }, []);
 
-  if (!municipioData) return <p>Cargando municipio...</p>;
+  if (cargando) return <p>Cargando datos...</p>;
 
   return (
-    <div>
-      <h1>{municipioData.nm}</h1>
-      <p>ID: {municipioData.id}</p>
-      <p>TVN: {municipioData.tvn}</p>
-      <p>PVN: {municipioData.pvn}</p>
-      <p>VNM: {municipioData.vnm}</p>
-      <p>PCV: {municipioData.pcv}</p>
+    <div className="detalle-container">
+      <h1>Resultados por Departamento</h1>
+
+      {departamentos.length === 0 ? (
+        <p>No hay datos disponibles.</p>
+      ) : (
+        <div className="lista-deptos">
+          {departamentos.map((d) => (
+            <div key={d.id} className="departamento-card">
+              <h2>{d.nm}</h2>
+              <p><strong>ID:</strong> {d.id}</p>
+              <p><strong>TVN:</strong> {d.tvn}</p>
+              <p><strong>PVN:</strong> {d.pvn}</p>
+              <p><strong>VNM:</strong> {d.vnm}</p>
+              <p><strong>PCV:</strong> {d.pcv}</p>
+
+              <h3>Candidatos:</h3>
+              {d.cdt && d.cdt.length > 0 ? (
+                <ul>
+                  {d.cdt.map((candidato) => (
+                    <li key={candidato.id}>
+                      <strong>{candidato.nm}</strong> — {candidato.ptd_nm} ({candidato.pc}%)
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No hay candidatos disponibles.</p>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

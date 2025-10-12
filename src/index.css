@@ -66,3 +66,72 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+.info-container {
+  background-color: #000;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.info-logo {
+  width: 100px;
+  height: 100px;
+  margin: 15px 0;
+}
+
+.info-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.info-author {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.info-description {
+  font-size: 15px;
+  line-height: 1.5;
+  max-width: 320px;
+  margin-bottom: 20px;
+}
+
+.info-link {
+  color: #4da6ff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.info-link:hover {
+  text-decoration: underline;
+}
+
+.info-version {
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 10px;
+}
+
+
+@media (max-width: 480px) {
+  .info-title {
+    font-size: 24px;
+  }
+
+  .info-description {
+    font-size: 14px;
+  }
+
+  .info-logo {
+    width: 80px;
+    height: 80px;
+  }
+}

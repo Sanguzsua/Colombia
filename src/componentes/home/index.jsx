@@ -66,9 +66,9 @@ let listaFiltrada;
       </div>
       <ul className="lista">
         {listaFiltrada.length > 0 ? (
-         listaFiltrada.map((unacapital) => (
-        <li key={unacapital.id}>
-            {unacapital.nm}
+         listaFiltrada.map((unelemento) => (
+        <li key={unelemento.id}>
+            {unelemento.nm}
         </li>))
         ):(
         <p>cargando datos..</p>
